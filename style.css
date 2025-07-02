@@ -241,3 +241,33 @@ h2 {
   50% { box-shadow: 0 0 10px #69f0ae; }
   100% { box-shadow: 0 0 0px #69f0ae; }
 }
+
+#optionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+#optionsContainer button {
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 2px solid #4caf50;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#optionsContainer button:hover {
+  background-color: #e0f2f1;
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+#optionsContainer button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
