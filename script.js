@@ -4,7 +4,7 @@ let respuestasCorrectas = 0;
 let retirado = false;
 
 document.addEventListener("DOMContentLoaded", () => {
-  preguntas = [...preguntaSet]; // Desde preguntas.js
+  preguntas = mezclarPreguntas(preguntaSet).slice(0, 6);
   iniciarJuego();
   document.getElementById("connectWallet").addEventListener("click", conectarWallet);
 });
@@ -20,11 +20,13 @@ function iniciarJuego() {
 
 function cargarPregunta() {
   const pregunta = preguntas[preguntaActual];
-  document.getElementById("questionText").textContent = pregunta.pregunta;
+  document.getElementById("questionText").textContent = `Pregunta ${preguntaActual + 1} / 6: ${pregunta.pregunta}`;
 
   const optionsContainer = document.getElementById("optionsContainer");
   optionsContainer.innerHTML = "";
-  document.getElementById("feedback").textContent = "";
+  const feedback = document.getElementById("feedback");
+  feedback.textContent = "";
+  feedback.className = ""; // Reiniciar clase de animación
   document.getElementById("nextBtn").style.display = "none";
 
   pregunta.opciones.forEach(op => {
@@ -37,25 +39,21 @@ function cargarPregunta() {
 
 function validarRespuesta(btn, correcta) {
   const feedback = document.getElementById("feedback");
+  const buttons = document.querySelectorAll("#optionsContainer button");
+  buttons.forEach(b => b.disabled = true);
 
   if (btn.textContent === correcta) {
     respuestasCorrectas++;
     feedback.textContent = "✅ ¡Correcto!";
     feedback.style.color = "green";
+    aplicarAnimacion(feedback);
   } else {
     feedback.textContent = "❌ Incorrecto. Perdiste tus 30 TR.";
     feedback.style.color = "red";
+    aplicarAnimacion(feedback);
     terminarJuego("perdiste");
     return;
   }
-
-const feedback = document.getElementById("feedback");
-feedback.classList.remove("pulse");
-void feedback.offsetWidth; // "trick" para reiniciar la animación
-feedback.classList.add("pulse");
-
-  const buttons = document.querySelectorAll("#optionsContainer button");
-  buttons.forEach(b => b.disabled = true);
 
   if (preguntaActual === 2) {
     document.getElementById("decision").style.display = "block";
@@ -88,19 +86,34 @@ function terminarJuego(resultado) {
   const mensaje = document.getElementById("mensajeFinal");
 
   if (resultado === "retiro") {
-    mensaje.textContent = "💰 ¡Te retiraste sabiamente! Ganaste 40 TR.";
+    mensaje.textContent = "💰 ¡Te retiraste sabiamente y ganaste 40 TR!";
   } else if (respuestasCorrectas === 6) {
-    mensaje.textContent = "🏆 ¡Felicidades! Contestaste todo perfecto y ganaste 100 TR.";
+    mensaje.textContent = "🏆 ¡Perfecto! Completaste todo y ganaste 100 TR.";
   } else {
     mensaje.textContent = "😓 Juego terminado. No pudiste completar el desafío.";
   }
+
+  aplicarAnimacion(mensaje);
 }
 
 function reiniciarJuego() {
+  preguntas = mezclarPreguntas(preguntaSet).slice(0, 6);
   iniciarJuego();
 }
 
-// 👉 Simulación de wallet (próximamente integración real)
+// 🎲 Función para mezclar preguntas
+function mezclarPreguntas(arr) {
+  return arr.sort(() => Math.random() - 0.5);
+}
+
+// 🌀 Reinicia animación cada vez que hay texto nuevo
+function aplicarAnimacion(elemento) {
+  elemento.classList.remove("pulse");
+  void elemento.offsetWidth; // Reiniciar
+  elemento.classList.add("pulse");
+}
+
+// 🔗 Conexión básica de wallet con Metamask
 async function conectarWallet() {
   if (window.ethereum) {
     try {
