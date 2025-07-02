@@ -1,0 +1,81 @@
+/* Fuente base */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f2f2f2;
+  color: #222;
+  margin: 0;
+  padding: 40px;
+  text-align: center;
+}
+
+/* Contenedor principal */
+.container {
+  max-width: 720px;
+  margin: auto;
+  background: #ffffff;
+  border: 3px solid #3aaa35;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Títulos */
+h1, h2 {
+  color: #2e7d32;
+  margin-bottom: 20px;
+}
+
+/* Botones de opciones */
+.options button {
+  display: block;
+  margin: 10px auto;
+  padding: 12px 20px;
+  font-size: 16px;
+  background-color: #cceccc;
+  border: 2px solid #3aaa35;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.options button:hover {
+  background-color: #aee4ae;
+  transform: scale(1.05);
+}
+
+/* Feedback correcto/incorrecto */
+#feedback {
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Botón siguiente y de retiro */
+#nextBtn,
+#decision button,
+#resultadoFinal button,
+#connectWallet {
+  margin-top: 20px;
+  padding: 12px 18px;
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+#nextBtn:hover,
+#decision button:hover,
+#resultadoFinal button:hover,
+#connectWallet:hover {
+  background-color: #1b5e20;
+}
+
+/* Wallet conectada */
+#walletAddress {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #555;
+}
