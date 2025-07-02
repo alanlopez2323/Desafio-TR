@@ -145,3 +145,10 @@ async function conectarWallet() {
     alert("Instalá Metamask para usar esta función.");
   }
 }
+
+let puntaje = 0;
+
+function sumarTR(valor) {
+  puntaje += valor;
+  document.getElementById("puntaje").innerText = puntaje;
+}
