@@ -1,5 +1,4 @@
 /* ====== BASE GENERAL ====== */
-
 body {
   margin: 0;
   padding: 40px 10px;
@@ -13,10 +12,15 @@ body {
   background-repeat: no-repeat;
 }
 
+/* ====== CONTENEDOR PRINCIPAL ====== */
 .container {
-  /* … */
+  max-width: 720px;
+  margin: auto;
   background: transparent;
-  /* … */
+  border: 3px solid #3aaa35;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 0 20px rgba(51, 105, 30, 0.1);
 }
 
 /* ====== TÍTULOS ====== */
@@ -144,7 +148,7 @@ h2 {
 /* ====== MENSAJE FINAL ====== */
 #resultadoFinal {
   margin-top: 20px;
-  background-color: #e8f5e9;
+  background-color: transparent;
   border: 2px solid #3aaa35;
   border-radius: 12px;
   padding: 30px;
@@ -169,8 +173,4 @@ h2 {
   border: none;
   border-radius: 8px;
   cursor: pointer;
-}
-
-#resultadoFinal {
-  background-color: transparent;
 }
