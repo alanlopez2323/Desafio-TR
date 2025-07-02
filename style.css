@@ -14,6 +14,27 @@ body {
   min-height: 100vh;
 }
 
+.correct {
+  background-color: #b9f6ca;
+  animation: flash 0.6s ease;
+}
+.incorrect {
+  background-color: #ffcdd2;
+  animation: shake 0.4s ease;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 20px;
+  }
+  h1 {
+    font-size: 24px;
+  }
+  .options button {
+    font-size: 14px;
+  }
+}
+
 /* ====== CONTENEDOR PRINCIPAL ====== */
 .container {
   max-width: 720px;
