@@ -49,6 +49,11 @@ function validarRespuesta(btn, correcta) {
     return;
   }
 
+const feedback = document.getElementById("feedback");
+feedback.classList.remove("pulse");
+void feedback.offsetWidth; // "trick" para reiniciar la animación
+feedback.classList.add("pulse");
+
   const buttons = document.querySelectorAll("#optionsContainer button");
   buttons.forEach(b => b.disabled = true);
 
