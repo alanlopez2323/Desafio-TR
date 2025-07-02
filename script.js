@@ -50,43 +50,35 @@ function validarRespuesta(btn, correcta) {
   const buttons = document.querySelectorAll("#optionsContainer button");
   buttons.forEach(b => b.disabled = true);
 
-if (btn.textContent === correcta) {
-  respuestasCorrectas++;
+  if (btn.textContent === correcta) {
+    respuestasCorrectas++;
 
-  // Sumá TR según en qué pregunta estamos
- 
-if (btn.textContent === correcta) {
-  respuestasCorrectas++;
+    if (preguntaActual === 0) {
+      sumarTR(10);
+    } else if (preguntaActual === 1) {
+      sumarTR(10);
+    } else {
+      sumarTR(20);
+    }
 
-  // Sumá TR según en qué pregunta estamos
-  if (preguntaActual === 0) {
-    sumarTR(10);
-  } else if (preguntaActual === 1) {
-    sumarTR(10);
-  } else {
-    sumarTR(20);
-  }
+    feedback.textContent = "✅ ¡Correcto!";
+    feedback.style.color = "green";
+    aplicarAnimacion(feedback);
 
-  feedback.textContent = "✅ ¡Correcto!";
-  feedback.style.color = "green";
-  aplicarAnimacion(feedback);
-
-  // Mostrar botón de decisión o siguiente según la pregunta
-  if (preguntaActual === 2) {
-    document.getElementById("retirarseBtn").innerText = `Retirarse con ${puntaje} TR`;
-    mostrarElemento("decision");
-  } else {
-    mostrarElemento("nextBtn");
-  }
-}
+    if (preguntaActual === 2) {
+      document.getElementById("retirarseBtn").innerText = `Retirarse con ${puntaje} TR`;
+      mostrarElemento("decision");
+    } else {
+      mostrarElemento("nextBtn");
+    }
 
   } else {
     feedback.textContent = "❌ Incorrecto. Perdiste tus 30 TR.";
     feedback.style.color = "red";
     aplicarAnimacion(feedback);
     terminarJuego("perdiste");
-    return;
   }
+}
 
   if (preguntaActual === 2) {
     mostrarElemento("decision");
