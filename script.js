@@ -148,7 +148,7 @@ async function conectarWallet() {
 
 let puntaje = 0;
 
-function sumarTR(valor) {
+function sumarTR(10) {
   puntaje += valor;
   document.getElementById("puntaje").innerText = puntaje;
 }
