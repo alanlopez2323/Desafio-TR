@@ -1,1 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Desafío TR</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
+  <!-- Cabecera / Branding -->
+  <header>
+    <h1>🏆 Desafío TR</h1>
+    <p>Cultura, tereré y guampazos de conocimiento</p>
+  </header>
+
+  <!-- Contador de puntos -->
+  <div id="contadorTR">TR acumulado: <span id="puntaje">0</span></div>
+
+  <!-- Zona principal del juego -->
+  <div id="game-area">
+    <div id="questionText">Cargando pregunta...</div>
+    <div id="optionsContainer"></div>
+    <div id="feedback" class="feedback"></div>
+
+    <!-- Botón Siguiente (oculto hasta responder) -->
+    <button id="nextBtn" style="display:none;">Siguiente</button>
+
+    <!-- Decisión estratégica después de la pregunta 3 -->
+    <div id="decision" style="display:none;">
+      <button id="retirarseBtn">Retirarse con X TR</button>
+      <button id="seguirBtn">Seguir jugando</button>
+    </div>
+  </div>
+
+  <!-- Resultado final del juego -->
+  <div id="resultadoFinal" style="display:none;">
+    <div id="mensajeFinal"></div>
+    <button id="reiniciarBtn">Volver a jugar</button>
+  </div>
+
+  <!-- Wallet connect -->
+  <div id="walletSection">
+    <button id="connectWallet">Conectar Wallet</button>
+    <div id="walletAddress"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="preguntas.js"></script> <!-- Asegurate que este archivo exista -->
+  <script src="script.js"></script>
+</body>
+</html>
