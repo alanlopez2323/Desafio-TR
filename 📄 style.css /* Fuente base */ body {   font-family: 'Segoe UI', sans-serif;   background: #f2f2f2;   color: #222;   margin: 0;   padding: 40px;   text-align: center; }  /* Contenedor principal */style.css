@@ -14,12 +14,6 @@ body {
   min-height: 100vh;
 }
 
-  /* 👉 Agregá estas dos líneas abajo */
-  width: 100vw;
-  min-height: 100vh;
-}
-
-
 /* ====== CONTENEDOR PRINCIPAL ====== */
 .container {
   max-width: 720px;
