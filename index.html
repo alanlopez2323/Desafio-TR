@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Desafío TR - Nivel 1</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="container">
+    <h1>🧉 Desafío TR</h1>
+    
+    <!-- Botón de conexión de wallet -->
+    <div id="wallet-connection">
+      <button id="connectWallet">🔗 Conectar Wallet</button>
+      <p id="walletAddress"></p>
+    </div>
+
+    <!-- Estado del juego -->
+    <div id="game-area">
+      <p class="question" id="questionText">Cargando pregunta...</p>
+      
+      <div class="options" id="optionsContainer">
+        <!-- Botones de respuesta se generan con JS -->
+      </div>
+      
+      <p id="feedback"></p>
+      <div id="decision" style="display: none;">
+        <p>🎯 ¡Llegaste a la pregunta 3!</p>
+        <button onclick="retirarse()">💰 Retirarse con 40 TR</button>
+        <button onclick="seguir()">🔥 Seguir al final</button>
+      </div>
+
+      <button id="nextBtn" onclick="nextQuestion()" style="display: none;">Siguiente pregunta ▶️</button>
+    </div>
+
+    <div id="resultadoFinal" style="display: none;">
+      <h2 id="mensajeFinal"></h2>
+      <button onclick="reiniciarJuego()">🔄 Volver a Jugar</button>
+    </div>
+  </div>
+
+  <script src="preguntas.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
