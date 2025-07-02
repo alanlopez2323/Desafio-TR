@@ -52,6 +52,7 @@ function validarRespuesta(btn, correcta) {
 
   if (btn.textContent === correcta) {
     respuestasCorrectas++;
+    sumarTR(10); // Aumenta TR al acertar
     feedback.textContent = "✅ ¡Correcto!";
     feedback.style.color = "green";
     aplicarAnimacion(feedback);
@@ -148,7 +149,7 @@ async function conectarWallet() {
 
 let puntaje = 0;
 
-function sumarTR(10) {
+function sumarTR(valor) {
   puntaje += valor;
   document.getElementById("puntaje").innerText = puntaje;
 }
