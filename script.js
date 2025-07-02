@@ -50,12 +50,23 @@ function validarRespuesta(btn, correcta) {
   const buttons = document.querySelectorAll("#optionsContainer button");
   buttons.forEach(b => b.disabled = true);
 
-  if (btn.textContent === correcta) {
-    respuestasCorrectas++;
-    sumarTR(10); // Aumenta TR al acertar
-    feedback.textContent = "✅ ¡Correcto!";
-    feedback.style.color = "green";
-    aplicarAnimacion(feedback);
+if (btn.textContent === correcta) {
+  respuestasCorrectas++;
+
+  // Sumá TR según en qué pregunta estamos
+  if (preguntaActual === 0) {
+    sumarTR(10);
+  } else if (preguntaActual === 1) {
+    sumarTR(10);
+  } else {
+    sumarTR(20);
+  }
+
+  feedback.textContent = "✅ ¡Correcto!";
+  feedback.style.color = "green";
+  aplicarAnimacion(feedback);
+}
+
   } else {
     feedback.textContent = "❌ Incorrecto. Perdiste tus 30 TR.";
     feedback.style.color = "red";
