@@ -20,10 +20,9 @@ body {
 }
 
 .container {
-  max-width: 720px;
-  margin: auto;
-  background: rgba(255,255,255,0.85);  /* un blanco 85% opaco */
-  /* ... resto igual ... */
+  /* … */
+  background: transparent;
+  /* … */
 }
 
 /* ====== TÍTULOS ====== */
