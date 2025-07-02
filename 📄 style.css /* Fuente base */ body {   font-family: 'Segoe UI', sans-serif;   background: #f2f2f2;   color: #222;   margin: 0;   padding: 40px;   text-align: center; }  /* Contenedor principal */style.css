@@ -1,11 +1,14 @@
 /* ====== BASE GENERAL ====== */
+
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(120deg, #e3f5e3, #ffffff);
   margin: 0;
   padding: 40px 10px;
   color: #222;
   text-align: center;
+
+  /* fondo único: tu PNG */
+  background: url('assets/fondo-terere.png') center/cover fixed no-repeat;
 }
 
 body {
