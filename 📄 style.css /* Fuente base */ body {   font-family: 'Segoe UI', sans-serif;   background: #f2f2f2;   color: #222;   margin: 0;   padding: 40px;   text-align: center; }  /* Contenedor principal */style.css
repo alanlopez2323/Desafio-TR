@@ -10,7 +10,15 @@ body {
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
+  width: 100vw;
+  min-height: 100vh;
 }
+
+  /* 👉 Agregá estas dos líneas abajo */
+  width: 100vw;
+  min-height: 100vh;
+}
+
 
 /* ====== CONTENEDOR PRINCIPAL ====== */
 .container {
