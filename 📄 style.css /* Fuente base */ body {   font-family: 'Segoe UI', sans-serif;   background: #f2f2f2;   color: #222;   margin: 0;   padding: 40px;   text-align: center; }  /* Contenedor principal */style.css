@@ -1,17 +1,11 @@
 /* ====== BASE GENERAL ====== */
 
 body {
-  font-family: 'Segoe UI', sans-serif;
   margin: 0;
   padding: 40px 10px;
+  font-family: 'Segoe UI', sans-serif;
   color: #222;
   text-align: center;
-
-  /* fondo único: tu PNG */
-  background: url('assets/fondo-terere.png') center/cover fixed no-repeat;
-}
-
-body {
   background-image: url('assets/fondo-terere.png');
   background-size: cover;
   background-position: center;
