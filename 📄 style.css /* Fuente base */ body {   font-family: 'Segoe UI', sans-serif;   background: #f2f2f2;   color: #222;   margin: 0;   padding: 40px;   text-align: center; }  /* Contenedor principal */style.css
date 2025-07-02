@@ -8,6 +8,14 @@ body {
   text-align: center;
 }
 
+body {
+  background-image: url('assets/fondo-terere.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
 .container {
   max-width: 720px;
   margin: auto;
