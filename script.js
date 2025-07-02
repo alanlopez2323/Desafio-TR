@@ -54,6 +54,11 @@ if (btn.textContent === correcta) {
   respuestasCorrectas++;
 
   // Sumá TR según en qué pregunta estamos
+ 
+if (btn.textContent === correcta) {
+  respuestasCorrectas++;
+
+  // Sumá TR según en qué pregunta estamos
   if (preguntaActual === 0) {
     sumarTR(10);
   } else if (preguntaActual === 1) {
@@ -65,6 +70,14 @@ if (btn.textContent === correcta) {
   feedback.textContent = "✅ ¡Correcto!";
   feedback.style.color = "green";
   aplicarAnimacion(feedback);
+
+  // Mostrar botón de decisión o siguiente según la pregunta
+  if (preguntaActual === 2) {
+    document.getElementById("retirarseBtn").innerText = `Retirarse con ${puntaje} TR`;
+    mostrarElemento("decision");
+  } else {
+    mostrarElemento("nextBtn");
+  }
 }
 
   } else {
