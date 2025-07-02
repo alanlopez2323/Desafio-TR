@@ -210,3 +210,34 @@ h2 {
   z-index: 999;
   box-shadow: 0 0 6px rgba(0,0,0,0.2);
 }
+
+.tr-flotante {
+  position: absolute;
+  font-size: 18px;
+  font-weight: bold;
+  color: #2e7d32;
+  animation: flotarYDesvanecer 1s ease-out forwards;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes flotarYDesvanecer {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+}
+
+#contadorTR.pulse {
+  animation: resplandor 0.4s ease;
+}
+
+@keyframes resplandor {
+  0% { box-shadow: 0 0 0px #69f0ae; }
+  50% { box-shadow: 0 0 10px #69f0ae; }
+  100% { box-shadow: 0 0 0px #69f0ae; }
+}
