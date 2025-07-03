@@ -1,273 +1,309 @@
-/* ====== BASE GENERAL ====== */
-body {
+/* ===========================
+   Reset y base (mobile-first)
+   =========================== */
+* {
+  box-sizing: border-box;
   margin: 0;
-  padding: 40px 10px;
-  font-family: 'Segoe UI', sans-serif;
-  color: #222;
-  text-align: center;
-  background-image: url('assets/Fondo-terere.png');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  width: 100vw;
-  min-height: 100vh;
+  padding: 0;
 }
 
-.correct {
-  background-color: #b9f6ca;
-  animation: flash 0.6s ease;
-}
-.incorrect {
-  background-color: #ffcdd2;
-  animation: shake 0.4s ease;
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding: 20px;
-  }
-  h1 {
-    font-size: 24px;
-  }
-  .options button {
-    font-size: 14px;
-  }
-}
-
-/* ====== CONTENEDOR PRINCIPAL ====== */
-.container {
-  max-width: 720px;
-  margin: auto;
-  background: transparent;
-  border: 3px solid #3aaa35;
-  border-radius: 16px;
-  padding: 30px;
-  box-shadow: 0 0 20px rgba(51, 105, 30, 0.1);
-}
-
-/* ====== TÍTULOS ====== */
-h1 {
-  font-size: 32px;
-  color: #2e7d32;
-  margin-bottom: 16px;
-}
-
-h2 {
-  font-size: 26px;
-  color: #1b5e20;
-}
-
-/* ====== WALLET ====== */
-#wallet-connection {
-  margin-bottom: 20px;
-}
-
-#connectWallet {
-  padding: 10px 18px;
-  font-size: 15px;
-  background-color: #2e7d32;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-#connectWallet:hover {
-  background-color: #185d1a;
-}
-
-#walletAddress {
-  margin-top: 6px;
-  font-size: 14px;
-  color: #555;
-}
-
-/* ====== TRIVIA ====== */
-.question {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 20px auto;
-  padding: 10px;
-  border-bottom: 2px solid #cfe6cf;
-}
-
-.options button {
-  display: block;
-  margin: 12px auto;
-  padding: 12px 24px;
-  font-size: 16px;
-  background-color: #e0f4e0;
-  border: 2px solid #3aaa35;
-  border-radius: 8px;
-  cursor: pointer;
-  width: 90%;
-  max-width: 400px;
-  transition: all 0.2s ease-in-out;
-}
-
-.options button:hover {
-  background-color: #b7e8b7;
-  transform: scale(1.05);
-}
-
-/* ====== FEEDBACK ====== */
-#feedback {
-  margin-top: 16px;
-  font-weight: bold;
-  font-size: 18px;
-  min-height: 24px;
-}
-
-.pulse {
-  animation: pulse 0.6s ease;
-}
-
-@keyframes pulse {
-  0%   { transform: scale(1); opacity: 0.3; }
-  50%  { transform: scale(1.08); opacity: 1; }
-  100% { transform: scale(1); }
-}
-
-/* ====== DECISIÓN 3.ª PREGUNTA ====== */
-#decision {
-  margin-top: 20px;
-}
-
-#decision button {
-  margin: 8px;
-  padding: 12px 20px;
-  font-weight: bold;
-  background-color: #fdd835;
+body {
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.4;
+  background: #fafafa;
   color: #333;
-  border: none;
-  border-radius: 10px;
+}
+
+button {
   cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-#decision button:hover {
-  background-color: #fbc02d;
-}
-
-/* ====== BOTÓN SIGUIENTE ====== */
-#nextBtn {
-  margin-top: 18px;
-  padding: 12px 20px;
-  background-color: #2e7d32;
-  color: white;
   border: none;
-  border-radius: 8px;
+  background: none;
+  font: inherit;
+}
+
+/* ============
+   Header global
+   ============ */
+header {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .75rem 1rem;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+#hamburger {
+  font-size: 1.4rem;
+}
+
+#backBtn {
+  font-size: 1.2rem;
+  display: none;
+}
+
+#viewTitle {
+  flex: 1;
   font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s ease-in-out;
 }
 
-#nextBtn:hover {
-  background-color: #1b5e20;
+#darkToggle {
+  font-size: 1.2rem;
 }
 
-/* ====== MENSAJE FINAL ====== */
-#resultadoFinal {
-  margin-top: 20px;
-  background-color: transparent;
-  border: 2px solid #3aaa35;
-  border-radius: 12px;
-  padding: 30px;
-  animation: aparecer 0.6s ease-in-out;
-}
-
-@keyframes aparecer {
-  0%   { transform: scale(0.9); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-#mensajeFinal {
-  font-size: 22px;
-  color: #1b5e20;
-}
-
-#resultadoFinal button {
-  margin-top: 16px;
-  padding: 12px 20px;
-  background-color: #43a047;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+/* ============
+   Topbar (contador + wallet)
+   ============ */
+.topbar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .5rem;
+  padding: .75rem 1rem;
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 #contadorTR {
-  font-size: 18px;
-  background-color: #e0f4e0;
-  padding: 10px 16px;
-  border-radius: 8px;
-  color: #1b5e20;
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  z-index: 999;
-  box-shadow: 0 0 6px rgba(0,0,0,0.2);
-}
-
-.tr-flotante {
-  position: absolute;
-  font-size: 18px;
   font-weight: bold;
-  color: #2e7d32;
-  animation: flotarYDesvanecer 1s ease-out forwards;
-  pointer-events: none;
-  z-index: 9999;
+  background: #e8f5e9;
+  padding: .4rem .8rem;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-@keyframes flotarYDesvanecer {
-  0% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-40px);
-  }
+#connectWallet {
+  background: #4caf50;
+  color: #fff;
+  padding: .5rem 1rem;
+  border-radius: 6px;
 }
 
-#contadorTR.pulse {
-  animation: resplandor 0.4s ease;
+#connectWallet.connected {
+  background: #388e3c;
 }
 
-@keyframes resplandor {
-  0% { box-shadow: 0 0 0px #69f0ae; }
-  50% { box-shadow: 0 0 10px #69f0ae; }
-  100% { box-shadow: 0 0 0px #69f0ae; }
+/* ===================
+   Menú lateral / home
+   =================== */
+.menu-list {
+  display: none;
+  flex-direction: column;
+  background: #fff;
+  position: fixed;
+  top: 56px;
+  left: 0;
+  width: 200px;
+  height: calc(100% - 56px);
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  padding-top: 1rem;
+  z-index: 90;
+}
+
+.menu-list.open {
+  display: flex;
+}
+
+.menu-list li {
+  list-style: none;
+  padding: .75rem 1rem;
+  border-bottom: 1px solid #eee;
+  transition: background .2s;
+}
+
+.menu-list li:hover {
+  background: #f0f0f0;
+}
+
+/* ======
+   Vistas
+   ====== */
+.view {
+  display: none;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.view.active {
+  display: block;
+}
+
+/* ============
+   Quiz (view-quiz)
+   ============ */
+#quiz-container {
+  max-width: 600px;
+  margin: auto;
+}
+
+#progressBar {
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+#progressBar div {
+  height: 100%;
+  background: #4caf50;
+  width: 0%;
+  transition: width .3s;
+}
+
+#questionText {
+  font-size: 1.2rem;
+  margin-bottom: .75rem;
 }
 
 #optionsContainer {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-top: 16px;
+  gap: .75rem;
 }
 
 #optionsContainer button {
-  padding: 12px 16px;
-  font-size: 16px;
+  padding: .75rem 1rem;
   border: 2px solid #4caf50;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  cursor: pointer;
+  border-radius: 6px;
+  background: #fff;
+  transition: all .2s;
   text-align: left;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 #optionsContainer button:hover {
-  background-color: #e0f2f1;
+  background: #e8f5e9;
   transform: scale(1.02);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
-#optionsContainer button:disabled {
-  opacity: 0.6;
-  cursor: default;
+#feedback {
+  margin: .75rem 0;
+  min-height: 1.2rem;
+}
+
+#nextBtn {
+  display: none;
+  margin-top: 1rem;
+  background: #4caf50;
+  color: #fff;
+  padding: .6rem 1.2rem;
+  border-radius: 6px;
+}
+
+#decision {
+  display: none;
+  margin-top: 1rem;
+  gap: .5rem;
+}
+
+#decision button {
+  background: #fff;
+  border: 2px solid #4caf50;
+  padding: .6rem 1rem;
+  border-radius: 6px;
+}
+
+/* ==============
+   Resultado final
+   ============== */
+#resultadoFinal {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+#resultadoFinal button {
+  background: #4caf50;
+  color: #fff;
+  padding: .6rem 1rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+}
+
+/* ==============
+   Ruleta (view-ruleta)
+   ============== */
+#ruleta-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+#ruleta {
+  width: 80vw;
+  max-width: 300px;
+  height: 80vw;
+  max-height: 300px;
+  border-radius: 50%;
+  border: 8px solid #4caf50;
+  position: relative;
+  overflow: hidden;
+  transition: transform 4s cubic-bezier(.17,.67,.83,.67);
+}
+
+#ruleta.spin {
+  transform: rotate(1440deg);
+}
+
+#spinBtn {
+  background: #4caf50;
+  color: #fff;
+  padding: .6rem 1.2rem;
+  border-radius: 6px;
+}
+
+/* ======================
+   Media queries (≥768px)
+   ====================== */
+@media (min-width: 768px) {
+  .topbar { 
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .menu-list {
+    display: flex;
+    position: static;
+    height: auto;
+    box-shadow: none;
+  }
+
+  main {
+    margin-left: 200px;
+  }
+
+  .view {
+    margin-top: 0;
+  }
+}
+
+/* ===============
+   Tema Oscuro
+   =============== */
+body.dark {
+  background: #121212;
+  color: #e0e0e0;
+}
+
+body.dark header,
+body.dark .topbar,
+body.dark .menu-list,
+body.dark .view {
+  background: #1e1e1e;
+  color: #e0e0e0;
+  border-color: #333;
+}
+
+body.dark #optionsContainer button {
+  background: #2a2a2a;
+  border-color: #4caf50;
+}
+
+body.dark #optionsContainer button:hover {
+  background: #388e3c;
 }
