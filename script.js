@@ -1,193 +1,64 @@
-let preguntas = [];
-let preguntaActual = 0;
-let respuestasCorrectas = 0;
-let puntaje = 0;
-let retirado = false;
+// ==== Navegación ====
+const views = document.querySelectorAll('.view');
+const backBtn = document.getElementById('backBtn');
+const viewTitle = document.getElementById('viewTitle');
+const menuItems = document.querySelectorAll('.menu-list li');
+const hamburger = document.getElementById('hamburger');
+const menuList = document.querySelector('.menu-list');
 
-const TRporPregunta = [10, 10, 20, 20, 20, 20];
+function hideAll() {
+  views.forEach(v => v.classList.remove('active'));
+}
 
-document.addEventListener("DOMContentLoaded", () => {
-  preguntas = mezclarPreguntas(preguntaSet).slice(0, 6);
-  iniciarJuego();
-  document.getElementById("connectWallet").addEventListener("click", conectarWallet);
-  document.getElementById("nextBtn").addEventListener("click", nextQuestion);
-  document.getElementById("retirarseBtn").addEventListener("click", retirarse);
-  document.getElementById("seguirBtn").addEventListener("click", seguir);
-  document.getElementById("reiniciarBtn").addEventListener("click", reiniciarJuego);
+function showView(id, title) {
+  hideAll();
+  document.getElementById(id).classList.add('active');
+  viewTitle.textContent = title || 'Desafío TR';
+  backBtn.style.display = id === 'view-home' ? 'none' : 'inline';
+  if (window.innerWidth < 768) menuList.classList.remove('open');
+}
+
+menuItems.forEach(li => {
+  li.addEventListener('click', () => {
+    const v = li.getAttribute('data-view');
+    showView(v, li.textContent);
+  });
 });
 
-function iniciarJuego() {
-  preguntaActual = 0;
-  respuestasCorrectas = 0;
-  puntaje = 0;
-  retirado = false;
-  document.getElementById("puntaje").innerText = puntaje;
-  ocultarElemento("resultadoFinal");
-  mostrarElemento("game-area");
-  cargarPregunta();
-}
+backBtn.addEventListener('click', () => showView('view-home', 'Menú Principal'));
+hamburger.addEventListener('click', () => menuList.classList.toggle('open'));
+showView('view-home', 'Menú Principal');
 
-function cargarPregunta() {
-  const pregunta = preguntas[preguntaActual];
 
-  if (!pregunta) {
-    terminarJuego("fin");
-    return;
-  }
+// ==== Modo oscuro ====
+const darkToggle = document.getElementById('darkToggle');
+darkToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  darkToggle.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+});
 
-  document.getElementById("questionText").textContent =
-    `🌿 Pregunta ${preguntaActual + 1} / ${preguntas.length}: ${pregunta.pregunta}`;
 
-  const optionsContainer = document.getElementById("optionsContainer");
-  optionsContainer.innerHTML = "";
+// ==== Conexión Wallet (simulada) ====
+const connectBtn = document.getElementById('connectWallet');
+connectBtn.addEventListener('click', () => {
+  const connected = !connectBtn.classList.toggle('connected');
+  connectBtn.textContent = connected ? 'Conectar Wallet' : 'Desconectar';
+  if (!connected) alert('Wallet conectada con éxito!');
+});
 
-  const feedback = document.getElementById("feedback");
-  feedback.textContent = "";
-  feedback.className = "";
-  ocultarElemento("nextBtn");
 
-  pregunta.opciones.forEach(op => {
-    const btn = document.createElement("button");
-    btn.textContent = op;
-    btn.className = "opcion";
-    btn.onclick = () => validarRespuesta(btn, pregunta.correcta);
-    optionsContainer.appendChild(btn);
-  });
-}
+// ==== Ruleta TR ====
+const ruletaEl = document.getElementById('ruleta');
+const spinBtn = document.getElementById('spinBtn');
 
-function validarRespuesta(btn, correcta) {
-  const feedback = document.getElementById("feedback");
-  const buttons = document.querySelectorAll("#optionsContainer button");
-  buttons.forEach(b => b.disabled = true);
-
-  if (btn.textContent === correcta) {
-    respuestasCorrectas++;
-    const TRGanados = TRporPregunta[preguntaActual];
-    sumarTR(TRGanados);
-
-    feedback.textContent = "✅ ¡Correcto!";
-    feedback.style.color = "green";
-    aplicarAnimacion(feedback);
-
-    if (preguntaActual === 2) {
-      document.getElementById("retirarseBtn").innerText = `Retirarse con ${puntaje} TR`;
-      mostrarElemento("decision");
-    } else {
-      mostrarElemento("nextBtn");
-    }
-  } else {
-    feedback.textContent = "❌ Incorrecto. Perdiste tus 30 TR.";
-    feedback.style.color = "red";
-    aplicarAnimacion(feedback);
-    terminarJuego("perdiste");
-  }
-}
-
-function nextQuestion() {
-  ocultarElemento("decision");
-  preguntaActual++;
-  cargarPregunta();
-}
-
-function retirarse() {
-  retirado = true;
-  terminarJuego("retiro");
-}
-
-function seguir() {
-  ocultarElemento("decision");
-  preguntaActual++;
-  cargarPregunta();
-}
-
-function terminarJuego(resultado) {
-  ocultarElemento("game-area");
-  mostrarElemento("resultadoFinal");
-  const mensaje = document.getElementById("mensajeFinal");
-
-  if (resultado === "retiro") {
-    mensaje.textContent = `💼 Te retiraste sabiamente y ganaste ${puntaje} TR.`;
-  } else if (resultado === "perdiste") {
-    mensaje.textContent = "😓 Juego terminado. No pudiste completar el desafío.";
-  } else if (puntaje >= 100) {
-    mensaje.textContent = "🏆 ¡Perfecto! Completaste todo y ganaste 100 TR.";
-  } else if (puntaje >= 60) {
-    mensaje.textContent = `💪 ¡Bien hecho! Obtuviste ${puntaje} TR. ¡Vas por buen camino!`;
-  } else {
-    mensaje.textContent = `🌱 Sumaste ${puntaje} TR. ¡Seguí practicando, kp!`;
-  }
-
-  aplicarAnimacion(mensaje);
-}
-
-function reiniciarJuego() {
-  preguntas = mezclarPreguntas(preguntaSet).slice(0, 6);
-  iniciarJuego();
-}
-
-// 🎯 Función de puntaje
-function sumarTR(valor) {
-  puntaje += valor;
-  document.getElementById("puntaje").innerText = puntaje;
-  mostrarTRFlotante(valor);
-  animarContadorTR();
-}
-
-// 💫 TR flotante
-function mostrarTRFlotante(valor) {
-  const tr = document.createElement("div");
-  tr.innerText = `+${valor} TR`;
-  tr.className = "tr-flotante";
-
-  const ref = document.getElementById("contadorTR");
-  const { top, left, width } = ref.getBoundingClientRect();
-  tr.style.left = `${left + width / 2}px`;
-  tr.style.top = `${top}px`;
-
-  document.body.appendChild(tr);
-  setTimeout(() => tr.remove(), 1000);
-}
-
-// ✨ Brillo en el contador al sumar TR
-function animarContadorTR() {
-  const contador = document.getElementById("contadorTR");
-  contador.classList.add("pulse");
-  setTimeout(() => contador.classList.remove("pulse"), 400);
-}
-
-// Utilidades
-function mezclarPreguntas(arr) {
-  return arr.sort(() => Math.random() - 0.5);
-}
-
-function aplicarAnimacion(elemento) {
-  elemento.classList.remove("pulse");
-  void elemento.offsetWidth;
-  elemento.classList.add("pulse");
-}
-
-function mostrarElemento(id) {
-  const el = document.getElementById(id);
-  if (el) el.style.display = "block";
-}
-
-function ocultarElemento(id) {
-  const el = document.getElementById(id);
-  if (el) el.style.display = "none";
-}
-
-// 🔐 Wallet
-async function conectarWallet() {
-  if (window.ethereum) {
-    try {
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      const wallet = accounts[0];
-      document.getElementById("walletAddress").textContent =
-        `💼 Wallet: ${wallet.slice(0, 6)}...${wallet.slice(-4)}`;
-    } catch (error) {
-      alert("No se pudo conectar la wallet.");
-    }
-  } else {
-    alert("Instalá Metamask para usar esta función.");
-  }
-}
+spinBtn.addEventListener('click', () => {
+  const premios = [5, 10, 20, 50, 0, 100];
+  const premio = premios[Math.floor(Math.random() * premios.length)];
+  ruletaEl.classList.add('spin');
+  setTimeout(() => {
+    ruletaEl.classList.remove('spin');
+    alert(`¡Ganaste ${premio} TR!`);
+    const actual = parseInt(document.getElementById('puntaje').textContent, 10);
+    document.getElementById('puntaje').textContent = actual + premio;
+  }, 4000);
+});
