@@ -2,448 +2,115 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Desafío TR</title>
-
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
   <style>
-    /* ===========================
-       Reset y base (mobile-first)
-       =========================== */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: Arial, sans-serif;
-      font-size: 1rem;
-      line-height: 1.4;
-      background: #fafafa;
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background-color: #F5F5F5;
       color: #333;
     }
-    button { 
-      cursor: pointer; 
-      border: none;
-      background: none;
-      font: inherit;
-    }
 
-    /* ============
-       Header global
-       ============ */
     header {
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-      padding: .75rem 1rem;
-      background: #fff;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    #hamburger {
-      font-size: 1.4rem;
-    }
-    #backBtn {
-      font-size: 1.2rem;
-      display: none;
-    }
-    #viewTitle {
-      flex: 1;
-      font-weight: bold;
-    }
-    #darkToggle {
-      font-size: 1.2rem;
-    }
-
-    /* ============
-       Topbar (contador + wallet)
-       ============ */
-    .topbar {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: .5rem;
-      padding: .75rem 1rem;
-      background: #fff;
-      border-bottom: 1px solid #e0e0e0;
-    }
-
-    #contadorTR {
-      font-weight: bold;
-      background: #e8f5e9;
-      padding: .4rem .8rem;
-      border-radius: 6px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    }
-    #connectWallet {
-      background: #4caf50;
-      color: #fff;
-      padding: .5rem 1rem;
-      border-radius: 6px;
-    }
-    #connectWallet.connected {
-      background: #388e3c;
-    }
-
-<button id="connectWalletBtn">Conectar Wallet</button>
-<div id="walletStatus"></div>
-
-    /* ===================
-       Menu lateral / home
-       =================== */
-    .menu-list {
-      display: none;
-      flex-direction: column;
-      background: #fff;
-      position: fixed;
-      top: 56px;
-      left: 0;
-      width: 200px;
-      height: calc(100% - 56px);
-      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-      padding-top: 1rem;
-      z-index: 90;
-    }
-    .menu-list.open { display: flex; }
-    .menu-list li {
-      list-style: none;
-      padding: .75rem 1rem;
-      border-bottom: 1px solid #eee;
-      transition: background .2s;
-    }
-    .menu-list li:hover {
-      background: #f0f0f0;
-    }
-
-    /* ======
-       Vistas
-       ====== */
-    .view {
-      display: none;
+      background-color: #499F68;
+      color: white;
       padding: 1rem;
-      margin-top: 1rem;
-    }
-    .view.active { display: block; }
-
-    /* ============
-       Quiz (view-quiz)
-       ============ */
-    #quiz-container {
-      max-width: 600px;
-      margin: auto;
-    }
-    #progressBar {
-      height: 8px;
-      background: #e0e0e0;
-      border-radius: 4px;
-      overflow: hidden;
-      margin-bottom: 1rem;
-    }
-    #progressBar div {
-      height: 100%;
-      background: #4caf50;
-      width: 0%;
-      transition: width .3s;
-    }
-    #questionText { font-size: 1.2rem; margin-bottom: .75rem; }
-    #optionsContainer {
-      display: flex;
-      flex-direction: column;
-      gap: .75rem;
-    }
-    #optionsContainer button {
-      padding: .75rem 1rem;
-      border: 2px solid #4caf50;
-      border-radius: 6px;
-      background: #fff;
-      transition: all .2s;
-      text-align: left;
-    }
-    #optionsContainer button:hover {
-      background: #e8f5e9;
-      transform: scale(1.02);
-    }
-    #feedback { margin: .75rem 0; min-height: 1.2rem; }
-    #nextBtn {
-      display: none;
-      margin-top: 1rem;
-      background: #4caf50;
-      color: #fff;
-      padding: .6rem 1.2rem;
-      border-radius: 6px;
-    }
-    #decision {
-      display: none;
-      margin-top: 1rem;
-      gap: .5rem;
-    }
-    #decision button {
-      background: #fff;
-      border: 2px solid #4caf50;
-      padding: .6rem 1rem;
-      border-radius: 6px;
-    }
-
-    /* ==============
-       Resultado final
-       ============== */
-    #resultadoFinal {
       text-align: center;
-      margin-top: 2rem;
     }
-    #resultadoFinal button {
-      background: #4caf50;
-      color: #fff;
-      padding: .6rem 1rem;
-      border-radius: 6px;
+
+    main {
+      padding: 2rem;
+      max-width: 700px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .button {
+      background-color: #D94C3B;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
       margin-top: 1rem;
     }
 
-    /* ==============
-       Ruleta (view-ruleta)
-       ============== */
-    #ruleta-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-    }
-    #ruleta {
-      width: 80vw;
-      max-width: 300px;
-      height: 80vw;
-      max-height: 300px;
-      border-radius: 50%;
-      border: 8px solid #4caf50;
-      position: relative;
-      overflow: hidden;
-      transition: transform 4s cubic-bezier(.17,.67,.83,.67);
-    }
-    #ruleta.spin { transform: rotate(1440deg); }
-    #spinBtn {
-      background: #4caf50;
-      color: #fff;
-      padding: .6rem 1.2rem;
-      border-radius: 6px;
+    #walletStatus {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #499F68;
     }
 
-    /* ======================
-       Media queries (≥768px)
-       ====================== */
-    @media (min-width: 768px) {
-      .topbar { 
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .menu-list {
-        display: flex;
-        position: static;
-        height: auto;
-        box-shadow: none;
-      }
-      main { margin-left: 200px; }
-      .view { margin-top: 0; }
-    }
-
-    /* ===============
-       Tema Oscuro
-       =============== */
-    body.dark {
-      background: #121212;
-      color: #e0e0e0;
-    }
-    body.dark header,
-    body.dark .topbar,
-    body.dark .menu-list,
-    body.dark .view {
-      background: #1e1e1e;
-      color: #e0e0e0;
-      border-color: #333;
-    }
-    body.dark #optionsContainer button {
-      background: #2a2a2a;
-      border-color: #4caf50;
-    }
-    body.dark #optionsContainer button:hover {
-      background: #388e3c;
+    footer {
+      background-color: #7F4F24;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
     }
   </style>
 </head>
 
 <body>
-  <!-- Header Global -->
   <header>
-    <button id="hamburger">☰</button>
-    <button id="backBtn">←</button>
-    <div id="viewTitle">Menú Principal</div>
-    <button id="darkToggle">🌙</button>
+    <h1>Bienvenido a Desafío TR 🧉</h1>
   </header>
 
-  <!-- Topbar: contador + wallet -->
-  <div class="topbar">
-    <div id="contadorTR">TR acumulado: <span id="puntaje">0</span></div>
-    <button id="connectWallet">Conectar Wallet</button>
-  </div>
-
-  <!-- Menú lateral / home -->
-  <ul class="menu-list">
-    <li data-view="view-quiz">Quiz TR</li>
-    <li data-view="view-ruleta">Ruleta TR</li>
-    <li data-view="view-leaderboard">Ranking</li>
-    <li data-view="view-perfil">Perfil</li>
-    <li data-view="view-recompensas">Recompensas</li>
-    <li data-view="view-ajustes">Ajustes</li>
-  </ul>
-
-  <!-- Contenedor de vistas -->
   <main>
-    <!-- Home / Menú -->
-    <section id="view-home" class="view active">
-      <h2>Bienvenido al Desafío TR</h2>
-      <p>Elige una sección para empezar:</p>
-      <ul>
-        <li><strong>Quiz TR:</strong> Pon a prueba tu cultura y gana TR.</li>
-        <li><strong>Ruleta TR:</strong> Gira la ruleta para sumar tokens.</li>
-        <li><strong>Ranking:</strong> Compite con otros cebadores.</li>
-        <li><strong>Perfil:</strong> Tu avatar, estadísticas y NFTs.</li>
-        <li><strong>Recompensas:</strong> Medallas e insignias.</li>
-        <li><strong>Ajustes:</strong> Tema, idioma y notificaciones.</li>
-      </ul>
-    </section>
+    <p>Esta es la puerta digital al mundo del Tereré Token.<br />
+    Conectá tu wallet para comenzar el viaje cultural y competitivo 🚀</p>
 
-    <!-- Quiz TR -->
-    <section id="view-quiz" class="view">
-      <div id="quiz-container">
-        <div id="progressBar"><div></div></div>
-        <div id="questionText">Cargando pregunta...</div>
-        <div id="optionsContainer"></div>
-        <div id="feedback"></div>
-        <button id="nextBtn">Siguiente</button>
-        <div id="decision">
-          <button id="retirarseBtn">Retirarse con X TR</button>
-          <button id="seguirBtn">Seguir jugando</button>
-        </div>
-        <div id="resultadoFinal">
-          <div id="mensajeFinal"></div>
-          <button id="reiniciarBtn">Volver a jugar</button>
-        </div>
-      </div>
-    </section>
+    <button id="connectWalletBtn" class="button">Conectar Wallet</button>
+    <div id="walletStatus"></div>
 
-    <!-- Ruleta TR -->
-    <section id="view-ruleta" class="view">
-      <div id="ruleta-container">
-        <div id="ruleta"></div>
-        <button id="spinBtn">Girar Ruleta</button>
-      </div>
-    </section>
+    <hr style="margin: 2rem 0;" />
 
-    <!-- Ranking -->
-    <section id="view-leaderboard" class="view">
-      <h2>Top 5 Cebadores</h2>
-      <ol id="leaderboard">
-        <li>—</li>
-      </ol>
-    </section>
-
-    <!-- Perfil -->
-    <section id="view-perfil" class="view">
-      <h2>Mi Perfil</h2>
-      <div id="avatar">👤</div>
-      <p>Level: <span id="miNivel">Iniciado</span></p>
-      <p>TR totales: <span id="miTR">0</span></p>
-      <button id="verNFTs">Mis NFTs (0)</button>
-    </section>
-
-    <!-- Recompensas -->
-    <section id="view-recompensas" class="view">
-      <h2>Medallas e Insignias</h2>
-      <div id="badges" style="display:flex;gap:.75rem;flex-wrap:wrap;">
-        <!-- Ejemplo de badge -->
-        <div class="badge">🏅 Racha perfecta</div>
-      </div>
-    </section>
-
-    <!-- Ajustes -->
-    <section id="view-ajustes" class="view">
-      <h2>Ajustes</h2>
-      <label>
-        <input type="checkbox" id="toggleIdiomaGuarani" />
-        activar guaraní
-      </label>
-    </section>
+    <!-- Módulos iniciales -->
+    <p><strong>📜 Quiz TR</strong> — Poné a prueba tu conocimiento paraguayo</p>
+    <p><strong>🎰 Ruleta TR</strong> — Apostá con sabiduría</p>
+    <p><strong>🏆 Ranking</strong> — Competí y subí como el mejor cebador</p>
+    <p><strong>👤 Perfil</strong> — Medallas, niveles y conexión Web3</p>
   </main>
 
+  <footer>
+    &copy; 2025 Tereré Token — Hecho en Paraguay 🇵🇾
+  </footer>
+
   <script>
-    // ================
-    // Navegación General
-    // ================
-    const views = document.querySelectorAll('.view');
-    const backBtn = document.getElementById('backBtn');
-    const viewTitle = document.getElementById('viewTitle');
-    const menuItems = document.querySelectorAll('.menu-list li');
-    const hamburger = document.getElementById('hamburger');
-    const menuList = document.querySelector('.menu-list');
+    const connectBtn = document.getElementById('connectWalletBtn');
+    const statusDiv = document.getElementById('walletStatus');
+    let connectedAddress = null;
 
-    function hideAll() {
-      views.forEach(v => v.classList.remove('active'));
-    }
-    function showView(id, title) {
-      hideAll();
-      document.getElementById(id).classList.add('active');
-      viewTitle.textContent = title || 'Desafío TR';
-      backBtn.style.display = id === 'view-home' ? 'none' : 'inline';
-      if (window.innerWidth < 768) menuList.classList.remove('open');
-    }
-    menuItems.forEach(li => {
-      li.addEventListener('click', () => {
-        const v = li.getAttribute('data-view');
-        showView(v, li.textContent);
-      });
+    connectBtn.addEventListener('click', async () => {
+      try {
+        if (!window.ethereum) {
+          statusDiv.innerHTML = "🔴 Metamask no está instalado.";
+          return;
+        }
+
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        await provider.send("eth_requestAccounts", []);
+        const signer = provider.getSigner();
+        connectedAddress = await signer.getAddress();
+
+        const display = `${connectedAddress.slice(0, 6)}...${connectedAddress.slice(-4)}`;
+        statusDiv.innerHTML = `🟢 Wallet conectada: ${display}`;
+
+        const perfil = {
+          direccion: connectedAddress,
+          puntos: 0,
+          nivel: 1,
+          ultimaConexion: new Date().toISOString()
+        };
+        localStorage.setItem("perfilTR", JSON.stringify(perfil));
+      } catch (error) {
+        statusDiv.innerHTML = "❌ Error al conectar Wallet.";
+        console.error(error);
+      }
     });
-    backBtn.addEventListener('click', () => showView('view-home', 'Menú Principal'));
-    hamburger.addEventListener('click', () => menuList.classList.toggle('open'));
-
-    // ================
-    // Dark Mode Toggle
-    // ================
-    const darkToggle = document.getElementById('darkToggle');
-    darkToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      darkToggle.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
-    });
-
-    // ================
-    // Conectar Wallet (stub)
-    // ================
-    const connectBtn = document.getElementById('connectWallet');
-    connectBtn.addEventListener('click', () => {
-      // Aquí iría la lógica real de MetaMask
-      const connected = !connectBtn.classList.toggle('connected');
-      connectBtn.textContent = connected ? 'Conectar Wallet' : 'Desconectar';
-      if (!connected) alert('Wallet conectada.');
-    });
-
-    // ================
-    // Ruleta TR
-    // ================
-    const ruletaEl = document.getElementById('ruleta');
-    const spinBtn = document.getElementById('spinBtn');
-    spinBtn.addEventListener('click', () => {
-      const premios = [5,10,20,50,0,100];
-      const premio = premios[Math.floor(Math.random() * premios.length)];
-      ruletaEl.classList.add('spin');
-      setTimeout(() => {
-        ruletaEl.classList.remove('spin');
-        alert(`¡Ganaste ${premio} TR!`);
-        const actual = parseInt(document.getElementById('puntaje').textContent, 10);
-        document.getElementById('puntaje').textContent = actual + premio;
-      }, 4000);
-    });
-
-    // ================
-    // Inicializar en home
-    // ================
-    showView('view-home', 'Menú Principal');
   </script>
 </body>
 </html>
